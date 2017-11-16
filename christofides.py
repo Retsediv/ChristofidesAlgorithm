@@ -17,6 +17,26 @@ def tsp(data):
     minimum_weight_matching(MSTree, G, odd_vertexes)
     print("Minimum weight matching: ", MSTree)
 
+    eulerian_tour = find_eulerian_tour(MSTree)
+    visited = [False] * (len(eulerian_tour) - 1)
+
+
+    print("Eulerian tour: ", eulerian_tour)
+
+    current = eulerian_tour[0]
+    paths = [current]
+    for x in eulerian_tour[1:]:
+        if not visited[x]:
+            visited[x] = True
+
+            paths.append(x)
+            length += G[current][x]
+
+            current = x
+
+    print("Result path: ", paths)
+    print("Result length of the path: ", length)
+
 
 def get_length(x1, y1, x2, y2):
     return ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** (1 / 2)
@@ -124,7 +144,6 @@ def find_odd_vertexes(MST):
     return vertexes
 
 
-# utility function that adds minimum weight matching edges to MST
 def minimum_weight_matching(MST, G, odd_vert):
     while odd_vert:
         v = odd_vert.pop()
@@ -139,6 +158,31 @@ def minimum_weight_matching(MST, G, odd_vert):
         MST.append((v, closest, length))
         odd_vert.remove(closest)
 
+
+def find_eulerian_tour(MatchedMSTree):
+    tour = []
+
+    start_vertex = MatchedMSTree[0][0]
+
+    tour.append(start_vertex)
+
+    while len(MatchedMSTree) > 0:
+        current_vertex = tour[len(tour) - 1]
+        for edge in MatchedMSTree:
+            if current_vertex in edge:
+                if edge[0] == current_vertex:
+                    current_vertex = edge[1]
+                elif edge[1] == current_vertex:
+                    current_vertex = edge[0]
+                else:
+                    # Edit to account for case no tour is possible
+                    return False
+
+                MatchedMSTree.remove(edge)
+                tour.append(current_vertex)
+                break
+
+    return tour
 
 
 tsp([[1, 1], [2, 5], [8, 0]])
