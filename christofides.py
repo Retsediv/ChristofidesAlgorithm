@@ -1,7 +1,9 @@
 def tsp(data):
+    # build a graph
     G = build_graph(data)
     print("Graph: ", G)
 
+    # build a minimum spanning tree
     MSTree = minimum_spanning_tree(G)
     print("MSTree: ", MSTree)
 
@@ -13,6 +15,7 @@ def tsp(data):
     minimum_weight_matching(MSTree, G, odd_vertexes)
     print("Minimum weight matching: ", MSTree)
 
+    # find an eulerian tour
     eulerian_tour = find_eulerian_tour(MSTree, G)
 
     print("Eulerian tour: ", eulerian_tour)
