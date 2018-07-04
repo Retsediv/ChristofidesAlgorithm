@@ -128,7 +128,7 @@ def find_odd_vertexes(MST):
 
 def minimum_weight_matching(MST, G, odd_vert):
     import random
-    odd_vert = random.shuffle(odd_vert)
+    random.shuffle(odd_vert)
 
     while odd_vert:
         v = odd_vert.pop()
