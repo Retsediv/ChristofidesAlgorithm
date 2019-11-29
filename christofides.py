@@ -23,6 +23,7 @@ def tsp(data):
     current = eulerian_tour[0]
     path = [current]
     visited = [False] * len(eulerian_tour)
+    visited[0] = True
 
     length = 0
 
