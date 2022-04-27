@@ -23,11 +23,10 @@ def tsp(data):
     current = eulerian_tour[0]
     path = [current]
     visited = [False] * len(eulerian_tour)
-    visited[0] = True
-
+    visited[eulerian_tour[0]] = True
     length = 0
 
-    for v in eulerian_tour[1:]:
+    for v in eulerian_tour:
         if not visited[v]:
             path.append(v)
             visited[v] = True
@@ -35,7 +34,8 @@ def tsp(data):
             length += G[current][v]
             current = v
 
-    path.append(path[0])
+    length +=G[current][eulerian_tour[0]]
+    path.append(eulerian_tour[0])
 
     print("Result path: ", path)
     print("Result length of the path: ", length)
